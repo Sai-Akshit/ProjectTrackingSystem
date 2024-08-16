@@ -7,9 +7,9 @@ from rest_framework.authentication import TokenAuthentication
 
 from django.contrib.auth import authenticate
 
-from .models import Project
-from .serializers import LoginSerializer, ProjectSerializer
-from .permissions import IsProjectManager
+from .models import Project, Scrum, Task
+from .serializers import LoginSerializer, ProjectSerializer, ScrumSerializer, ScrumSerializerPOST, TaskSerializer, TaskSerializerPOST
+from .permissions import IsProjectManager, IsProjectManagerForUnsafeMethods
 
 
 class LoginView(APIView):
@@ -33,10 +33,11 @@ class ProjectView(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request):
+        """Create new project, send email to all employees"""
         serializer = ProjectSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response({"message":f"Project {serializer.data['title']} created successfully."}, status=status.HTTP_201_CREATED)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -68,3 +69,89 @@ class ProjectView(APIView):
         return Response({"message": f"{name} deleted successfully"})
 
 
+class ScrumView(APIView):
+    permission_classes = [IsAuthenticated, IsProjectManagerForUnsafeMethods]
+    authentication_classes = [TokenAuthentication]
+    def get(self, request):
+        scrums = Scrum.objects.all()
+        serializer = ScrumSerializer(scrums, many=True)
+
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def post(self, request):
+        serializer = ScrumSerializerPOST(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def put(self, request):
+        scrum = Scrum.objects.get(id=request.data['id'])
+        serializer = ScrumSerializerPOST(scrum, data=request.data)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def patch(self, request):
+        scrum = Scrum.objects.get(id=request.data['id'])
+        serializer = ScrumSerializerPOST(scrum, data=request.data, partial=True)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request):
+        scrum = Scrum.objects.get(id=request.data['id'])
+        scrum_name = scrum.title
+
+        return Response({"message": f"{scrum_name} deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+    
+
+class TaskView(APIView):
+    permission_classes = [IsAuthenticated, IsProjectManagerForUnsafeMethods]
+    authentication_classes = [TokenAuthentication]
+    def get(self, request):
+        tasks = Task.objects.all()
+        serializer = TaskSerializer(tasks, many=True)
+
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def post(self, request):
+        serializer = TaskSerializerPOST(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    def put(self, request):
+        task = Task.objects.get(id=request.data['id'])
+        serializer = TaskSerializerPOST(task, data=request.data)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    def patch(self, request):
+        task = Task.objects.get(id=request.data['id'])
+        serializer = TaskSerializerPOST(task, data=request.data, partial=True)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    def delete(self, request):
+        task = Task.objects.get(id=request.data['id'])
+        task_name = task.title
+        task.delete()
+
+        return Response({"message": f"{task_name} deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
