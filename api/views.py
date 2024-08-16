@@ -42,6 +42,7 @@ class ProjectView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def put(self, request):
+        """Update project, send email to all employees"""
         project = Project.object.get(id=request.data["id"])
         serializer = ProjectSerializer(project, data=request.data)
 
@@ -52,6 +53,7 @@ class ProjectView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def patch(self, request):
+        """Update project, send email to all employees"""
         project = Project.objects.get(id=request.data["id"])
         serializer = ProjectSerializer(project, data=request.data, partial=True)
 
@@ -62,6 +64,7 @@ class ProjectView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request):
+        """Delete project, send email to all employees"""
         project = Project.objects.get(id=request.data["id"])
         name = project.name
         project.delete()
@@ -73,12 +76,14 @@ class ScrumView(APIView):
     permission_classes = [IsAuthenticated, IsProjectManagerForUnsafeMethods]
     authentication_classes = [TokenAuthentication]
     def get(self, request):
+        """Get all scrums"""
         scrums = Scrum.objects.all()
         serializer = ScrumSerializer(scrums, many=True)
 
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request):
+        """Create new scrum, send email to all employees"""
         serializer = ScrumSerializerPOST(data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -86,6 +91,7 @@ class ScrumView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def put(self, request):
+        """Update scrum, send email to all employees"""
         scrum = Scrum.objects.get(id=request.data['id'])
         serializer = ScrumSerializerPOST(scrum, data=request.data)
 
@@ -96,6 +102,7 @@ class ScrumView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def patch(self, request):
+        """Update scrum, send email to all employees"""
         scrum = Scrum.objects.get(id=request.data['id'])
         serializer = ScrumSerializerPOST(scrum, data=request.data, partial=True)
 
@@ -106,6 +113,7 @@ class ScrumView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request):
+        """Delete scrum, send email to all employees"""
         scrum = Scrum.objects.get(id=request.data['id'])
         scrum_name = scrum.title
 
@@ -116,12 +124,14 @@ class TaskView(APIView):
     permission_classes = [IsAuthenticated, IsProjectManagerForUnsafeMethods]
     authentication_classes = [TokenAuthentication]
     def get(self, request):
+        """Get all tasks"""
         tasks = Task.objects.all()
         serializer = TaskSerializer(tasks, many=True)
 
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request):
+        """Create new task, send email to the person assigned"""
         serializer = TaskSerializerPOST(data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -130,6 +140,7 @@ class TaskView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
     def put(self, request):
+        """Update task, send email to the person assigned"""
         task = Task.objects.get(id=request.data['id'])
         serializer = TaskSerializerPOST(task, data=request.data)
 
@@ -140,6 +151,7 @@ class TaskView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
     def patch(self, request):
+        """Update task, send email to the person assigned"""
         task = Task.objects.get(id=request.data['id'])
         serializer = TaskSerializerPOST(task, data=request.data, partial=True)
 
@@ -150,6 +162,7 @@ class TaskView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
     def delete(self, request):
+        """Delete task, send email to the person assigned"""
         task = Task.objects.get(id=request.data['id'])
         task_name = task.title
         task.delete()
