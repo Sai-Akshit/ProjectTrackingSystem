@@ -189,6 +189,7 @@ cython_debug/
 # Translations
 
 # Django stuff:
+migrations/
 
 # Flask stuff:
 
