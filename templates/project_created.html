@@ -1,0 +1,191 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Assignment Email</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        /* CSS Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Importing Google Font */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #fcfcfd;
+            color: #0a274c;
+            padding: 20px;
+        }
+
+        .email-container {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #fcfcfd;
+        }
+
+        .header {
+            background-color: #0a274c;
+            color: #fcfcfd;
+            padding: 20px;
+            text-align: center;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        .logo {
+            width: 180px; /* Increased size */
+            margin: 20px auto;
+            display: block;
+        }
+
+        .content {
+            padding: 20px;
+            text-align: left; /* All content left-aligned except the logo */
+        }
+
+        .greeting {
+            font-size: 18px;
+            color: #38506e;
+        }
+
+        .project-info {
+            margin-top: 20px;
+        }
+
+        .project-info h2 {
+            font-size: 20px;
+            color: #0a274c;
+            font-weight: 600;
+        }
+
+        .project-info span {
+            color: #0a274c;
+        }
+
+        .project-info p {
+            font-size: 16px;
+            margin: 5px 0;
+            color: #38506e;
+        }
+
+        .footer {
+            margin-top: 30px;
+        }
+
+        .footer p {
+            font-size: 16px;
+            color: #38506e;
+            line-height: 1.5;
+        }
+
+        .signature {
+            margin-top: 15px;
+            font-weight: 600;
+        }
+
+        .team-name {
+            font-size: 18px;
+            color: #2581f3;
+            font-weight: 600;
+            margin-top: 5px;
+        }
+
+        .footer-bottom {
+            background-color: #f0f0f5; /* Off-white background */
+            padding: 20px;
+            border-bottom-left-radius: 8px;
+            border-bottom-right-radius: 8px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .footer-bottom p {
+            color: #0a274c;
+        }
+
+        .footer-bottom a {
+            color: #2581f3;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            .email-container {
+                width: 100%;
+            }
+
+            .header h1 {
+                font-size: 20px;
+            }
+
+            .content {
+                padding: 15px;
+            }
+
+            .project-info h2 {
+                font-size: 18px;
+            }
+
+            .footer p {
+                font-size: 14px;
+            }
+
+            .footer-bottom {
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <!-- Header Section -->
+        <div class="header">
+            <h1>New Project Assigned</h1>
+        </div>
+
+        <!-- Main Content -->
+        <div class="content">
+            <img src="https://res.cloudinary.com/dgtzotq7a/image/upload/v1723833405/logo_ue6cbm.png" alt="Company Logo" class="logo">
+            <p class="greeting">Hello,</p>
+            <p>We are excited to inform you that a new project has been assigned to you. Below are the details:</p>
+
+            <div class="project-info">
+                <h2>Project Title: <span>{{ project_title }}</span></h2>
+                <p><strong>Description:</strong> {{ project_description }}</p>
+                <p><strong>Assigned Employees:</strong></p>
+                <ul>
+                    {% for employee in employees %}
+                        <li>{{ employee }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <div class="footer">
+                <p>If you have any questions or need further assistance, feel free to reach out to the project manager.</p>
+                <p class="signature">Best regards,</p>
+                <p class="team-name">IntendCareer</p>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2024 IntendCareer.</p>
+            
+        </div>
+    </div>
+</body>
+</html>

@@ -15,11 +15,11 @@ class ProjectSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
     def validate_employees(self, data):
-        pattern = r'^[a-zA-Z0-9_.+-]+@intendcareer\.com$'
+        pattern = r"^[a-zA-Z0-9_.+-]+@intendcareer\.com$"
         emails = [x.strip() for x in data.split(",")]
 
         def isEmailValid(email):
-            pattern = r'^[a-zA-Z0-9_.+-]+@intendcareer\.com$'
+            pattern = r"^[a-zA-Z0-9_.+-]+@intendcareer\.com$"
             if re.match(pattern, email):
                 return True
             return False
@@ -49,6 +49,7 @@ class UserSerializer(serializers.ModelSerializer):
 class ScrumSerializer(serializers.ModelSerializer):
     project = ProjectSerializer1()
     created_by = UserSerializer()
+
     class Meta:
         model = Scrum
         fields = "__all__"
@@ -60,14 +61,14 @@ class ScrumSerializerPOST(serializers.ModelSerializer):
 
     class Meta:
         model = Scrum
-        exclude = ['created', 'modified']
+        exclude = ["created", "modified"]
 
 
 class TaskSerializer(serializers.ModelSerializer):
     class Meta:
         model = Task
         exclude = ["created", "modified"]
-    
+
 
 class TaskSerializerPOST(serializers.ModelSerializer):
     scrum = serializers.PrimaryKeyRelatedField(queryset=Scrum.objects.all())

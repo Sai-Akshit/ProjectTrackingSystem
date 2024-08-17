@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scrum Page</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        /* CSS Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #fcfcfd;
+            color: #0a274c;
+            padding: 20px;
+        }
+
+        .page-container {
+            max-width: 600px;
+            margin: auto;
+            background-color: #fcfcfd;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            background-color: #0a274c;
+            color: #fcfcfd;
+            text-align: center;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+            padding: 20px;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-top: 20px;
+        }
+
+        .logo {
+            width: 180px; /* Logo size */
+            display: block;
+            margin: 0 auto 20px;
+        }
+
+        .content {
+            padding: 20px;
+        }
+
+        .title {
+            font-size: 22px;
+            color: #0a274c;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .description {
+            font-size: 16px;
+            color: #38506e;
+            margin: 0; /* Remove bottom margin */
+        }
+
+        .details {
+            margin: 10px 0; /* Adjust margin to reduce space */
+        }
+
+        .details p {
+            font-size: 16px;
+            margin: 5px 0; /* Maintain spacing between items */
+            color: #38506e;
+        }
+
+        .footer {
+            margin-top: 30px;
+        }
+
+        .footer p {
+            font-size: 16px;
+            color: #38506e;
+            line-height: 1.5;
+        }
+
+        .signature, .team-name {
+            font-weight: 600;
+        }
+
+        .team-name {
+            color: #2581f3;
+            font-size: 18px;
+            margin-top: 5px;
+        }
+
+        .footer-bottom {
+            background-color: #f0f0f5;
+            padding: 20px;
+            border-bottom-left-radius: 8px;
+            border-bottom-right-radius: 8px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .footer-bottom p {
+            color: #0a274c;
+        }
+
+        .footer-bottom a {
+            color: #2581f3;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            .header h1 {
+                font-size: 20px;
+            }
+
+            .content {
+                padding: 15px;
+            }
+
+            .title {
+                font-size: 20px;
+            }
+
+            .description {
+                font-size: 14px;
+            }
+
+            .footer, .footer-bottom {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-container">
+        <!-- Header Section -->
+        <div class="header">
+            <h1>Scrum Details</h1>
+        </div>
+
+        <!-- Main Content -->
+        <div class="content">
+            <img src="https://res.cloudinary.com/dgtzotq7a/image/upload/v1723833405/logo_ue6cbm.png" alt="Company Logo" class="logo"> <!-- Logo centered above content -->
+            <p class="title">Scrum Title: {{ scrum_title }}</p>
+            <p class="description"><strong>Scrum Description:</strong>{{ scrum_description }}</p>
+            <div class="details">
+                <p><strong>Start Date:</strong>{{ start_date }}</p>
+                <p><strong>End Date:</strong>{{ end_date }}</p>
+                <p><strong>Created By:</strong>{{ created_by }}</p>
+            </div>
+
+            <div class="footer">
+                <p>If you have any questions or need further assistance, feel free to reach out.</p>
+                <p class="signature">Best regards,</p>
+                <p class="team-name">IntendCareer</p>
+            </div>
+        </div>
+
+        <!-- Footer Section -->
+        <div class="footer-bottom">
+            <p>&copy; 2024 IntendCareer.</p>
+        </div>
+    </div>
+</body>
+</html>
