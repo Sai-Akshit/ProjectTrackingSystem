@@ -284,4 +284,6 @@ pyrightconfig.json
 .ionide
 .DS_Store
 
+staticfiles/
+
 # End of https://www.toptal.com/developers/gitignore/api/python,django,visualstudiocode
